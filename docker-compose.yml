@@ -5,5 +5,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./app:/app
+      - ./app:/usr/src/app
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+    user: ${USER_ID}:${GROUP_ID}
     tty: true
