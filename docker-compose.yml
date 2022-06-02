@@ -9,4 +9,5 @@ services:
       - /etc/passwd:/etc/passwd:ro
       - /etc/group:/etc/group:ro
     user: ${USER_ID}:${GROUP_ID}
+    privileged: true
     tty: true

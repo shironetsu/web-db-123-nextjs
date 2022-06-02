@@ -104,3 +104,19 @@ Dockerを再起動。
 - [Declare default environment variables in file \| Docker Documentation](https://docs.docker.com/compose/env-file/)
 - [dockerでvolumeをマウントしたときのファイルのowner問題 \- Qiita](https://qiita.com/yohm/items/047b2e68d008ebb0f001)
 - [bash \- How to set uid and gid in Docker Compose? \- Stack Overflow](https://stackoverflow.com/questions/56844746/how-to-set-uid-and-gid-in-docker-compose)
+
+
+# Permisson denied
+
+↑解決していなかった。npm installで/home下にディレクトリを作ろうとするが、root権限が無くてこける。
+
+docker-compose.ymlに
+
+```yml
+    privileged: true
+```
+
+を追記する。うまくいく。
+
+サンドボックス化を破るので良くないという説を見たが今は考えない。
+
