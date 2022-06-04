@@ -129,3 +129,63 @@ docker-compose.ymlに
 Ubuntuのログインユーザーをrootにすれば良い説があるが、最終的にWindows側で作業することに。
 
 Windows側のログインユーザーとコンテナ内のrootのマッピングが機能していて、ユーザーを追加しなくても権限回りで怒られなくなった。
+
+# GitHub API
+
+1. [Personal access tokens](https://github.com/settings/tokens)
+2. Generate new token
+3. Note > 適当に
+4. ✅repo ✅user
+5. Generate token
+6. コピーして.env.local（.gitignoreすること）の `GITHUB_ACCESS_TOKEN` に貼りつけ
+
+# GitHub OAuth
+
+1. [Developer applications](https://github.com/settings/developers)
+2. New OAuth App
+3. Homepage URL, Authorization callback URLにホームページURLを追記（開発環境用なら `http://localhost:3000`）
+4. Refister application
+
+# octokit
+
+[Octokit](https://github.com/octokit)
+
+インスタンスをexportして使いまわす。
+
+```ts
+export const octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
+```
+
+# getStaticPaths
+ビルド時の静的生成が不要な場合、戻り値の `paths` は完全に空で良い。`fallback: true` だけ指定。
+
+# useRouter
+
+[next/router \| Next\.js](https://nextjs.org/docs/api-reference/next/router)
+
+`next/router` の `router` からフォールバック状態かどうか判定できる。
+
+```tsx
+import { useRouter } from 'next/router'
+
+const Page = (props:PageProps) => {
+  const router = useRouter()
+  if(router.isFallback){
+    return <Loading />
+  }
+  //略
+}
+```
+
+# NextAuth
+
+[NextAuth\.js · Authentication for Next\.js](https://next-auth.js.org/)
+
+記事公開以後にメジャーアップデートがありv4が出ている。
+
+
+
+```
+[next-auth][warn][nextauth_url] 
+https://next-auth.js.org/warnings#nextauth_url NEXTAUTH_URL environment variable not set
+```
