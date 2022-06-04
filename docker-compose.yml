@@ -4,10 +4,9 @@ services:
     build: .
     ports:
       - "3000:3000"
+      - "3001:3001"
     volumes:
       - ./app:/usr/src/app
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
-    user: ${USER_ID}:${GROUP_ID}
+      - ./imadoki-nextjs:/usr/src/imadoki-nextjs
     privileged: true
     tty: true
